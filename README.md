@@ -39,7 +39,7 @@ http://huaban.com/partner/uc/aimeinv/pins/?max=2117952645&limit=8&wfl=1
 
 首先由url获取网页返回的内容
 
-``` 
+``` go
 func getHtml(url string) string{
 	resp, err := http.Get(url)
 
@@ -58,7 +58,7 @@ func getHtml(url string) string{
 
 然后解析该网页，包括下载该页中的图片，以及得到max值用于翻页。抓包时发现浏览器中返回的是json，我自己也试着加上Accept头，接受json类型，但返回的仍然是html，估计是少了什么header，这里我也懒得去尝试缺少啥头部了，直接对返回的html页面解析，就像第一次打开首页那样。另外由于key都位于script标签内，所以就不太适合用goquery等库了，直接用正则解析吧
 
-``` 
+``` go
 
 func parsePage(strHtml string) string{
 	// 利用正则爬取页面中图片的key
@@ -89,7 +89,7 @@ func parsePage(strHtml string) string{
 
 其中downImg()是图片下载函数
 
-``` 
+``` go
 
 // 图片下载函数
 func downImg(url string) {
@@ -124,7 +124,7 @@ func downImg(url string) {
 
 关键的main函数是
 
-``` 
+``` go
 func main() {
 	fmt.Println("Spider Start: ------------------------------>")
 
